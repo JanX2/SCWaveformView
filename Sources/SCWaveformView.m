@@ -23,6 +23,8 @@
 
 @end
 
+
+@interface SCWaveformLayer : CALayer
 @property (assign, nonatomic) CMTime waveformTime;
 
 @end
@@ -32,9 +34,9 @@
 
 @end
 
-@interface SCWaveformLayerDelegate : NSObject
-
-@end
+//@interface SCWaveformLayerDelegate : NSObject
+//
+//@end
 
 @implementation SCWaveformLayerDelegate
 
@@ -80,7 +82,7 @@
 - (void)commonInit {
     _precision = 1;
     _lineWidthRatio = 1;
-
+    
     _waveformLayersDelegate = [SCWaveformLayerDelegate new];
     _timeRange = CMTimeRangeMake(kCMTimeZero, kCMTimePositiveInfinity);
     _progressTime = kCMTimeZero;
@@ -139,7 +141,7 @@
         }
         
     }
-
+    
     return numberOfLayers;
 }
 
@@ -241,11 +243,11 @@
                 
                 layer.frame = CGRectMake((newFirstVisibleIdx + idx) * bandWidth, _channelsPadding * channel + heightPerChannel * channel + halfHeightPerChannel - pixelHeight,
                                          _lineWidthRatio / pixelRatio, pixelHeight * 2);
-                                
+                
                 layer.waveformTime = time;
             }
         }];
-
+        
         _graphDirty = NO;
         
         [CATransaction commit];
@@ -259,7 +261,7 @@
 - (UIImage *)generateWaveformImageWithSize:(CGSize)size {
     UIGraphicsBeginImageContextWithOptions(CGSizeMake(size.width, size.height), NO, 1);
     
-//    [self renderWaveformInContext:UIGraphicsGetCurrentContext() size:size];
+    //    [self renderWaveformInContext:UIGraphicsGetCurrentContext() size:size];
     
     UIImage *image = UIGraphicsGetImageFromCurrentImageContext();
     
@@ -308,14 +310,14 @@
                 CGRect bounds = layer.bounds;
                 bounds.size.width = _lineWidthRatio / pixelRatio;
                 layer.bounds = bounds;
-            }            
+            }
         }
     }
 }
 
 - (void)setNormalColor:(UIColor *)normalColor {
     _normalColor = normalColor;
-
+    
     [self _updateLayersColor:YES lineWidth:NO];
 }
 
@@ -358,7 +360,7 @@
     }
     
     _timeRange = timeRange;
-
+    
     [self setNeedsLayout];
     
     [self didChangeValueForKey:@"timeRange"];
@@ -381,7 +383,7 @@
 - (CGSize)waveformSize {
     CMTimeRange timeRange = _timeRange;
     CMTime assetDuration = [_cache actualAssetDuration];
-
+    
     if (CMTIME_IS_INVALID(assetDuration) || CMTIME_IS_INVALID(timeRange.duration) || CMTIME_IS_POSITIVE_INFINITY(timeRange.duration)) {
         return CGSizeZero;
     } else {
@@ -421,7 +423,7 @@
         _channelsPadding = channelsPadding;
         
         [self _makeDirty];
-
+        
     }
 }
 
