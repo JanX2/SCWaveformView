@@ -45,7 +45,6 @@
 		DC2C7A471892A0770085043D /* SCViewController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = SCViewController.h; sourceTree = "<group>"; };
 		DC2C7A481892A0770085043D /* SCViewController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = SCViewController.m; sourceTree = "<group>"; };
 		DC2C7A4A1892A0770085043D /* Images.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Images.xcassets; sourceTree = "<group>"; };
-		DC2C7A511892A0770085043D /* XCTest.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = XCTest.framework; path = Library/Frameworks/XCTest.framework; sourceTree = DEVELOPER_DIR; };
 		DC2C7A671892A0AD0085043D /* SCWaveformView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SCWaveformView.h; sourceTree = "<group>"; };
 		DC2C7A681892A0AD0085043D /* SCWaveformView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SCWaveformView.m; sourceTree = "<group>"; };
 		DC2C7A6B1892A84F0085043D /* test.m4a */ = {isa = PBXFileReference; lastKnownFileType = file; path = test.m4a; sourceTree = "<group>"; };
@@ -103,7 +102,6 @@
 				DC2C7A321892A0770085043D /* Foundation.framework */,
 				DC2C7A341892A0770085043D /* CoreGraphics.framework */,
 				DC2C7A361892A0770085043D /* UIKit.framework */,
-				DC2C7A511892A0770085043D /* XCTest.framework */,
 			);
 			name = Frameworks;
 			sourceTree = "<group>";
