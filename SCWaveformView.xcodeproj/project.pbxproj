@@ -7,6 +7,7 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		3D33F590275505C60046AA97 /* Launch Screen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 3D33F58E275505C60046AA97 /* Launch Screen.storyboard */; };
 		DC27B75E1A9D0C80003DA2CB /* SCScrollableWaveformView.m in Sources */ = {isa = PBXBuildFile; fileRef = DC27B75D1A9D0C80003DA2CB /* SCScrollableWaveformView.m */; };
 		DC27B7611A9D2649003DA2CB /* SCWaveformCache.m in Sources */ = {isa = PBXBuildFile; fileRef = DC27B7601A9D2649003DA2CB /* SCWaveformCache.m */; };
 		DC2C7A331892A0770085043D /* Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = DC2C7A321892A0770085043D /* Foundation.framework */; };
@@ -27,6 +28,7 @@
 		3D33F588275502350046AA97 /* DEVELOPMENT_TEAM.template.xcconfig */ = {isa = PBXFileReference; lastKnownFileType = text.xcconfig; path = DEVELOPMENT_TEAM.template.xcconfig; sourceTree = "<group>"; };
 		3D33F589275502350046AA97 /* DEVELOPMENT_TEAM.xcconfig */ = {isa = PBXFileReference; lastKnownFileType = text.xcconfig; path = DEVELOPMENT_TEAM.xcconfig; sourceTree = "<group>"; };
 		3D33F58A275502350046AA97 /* Shared.xcconfig */ = {isa = PBXFileReference; lastKnownFileType = text.xcconfig; path = Shared.xcconfig; sourceTree = "<group>"; };
+		3D33F58F275505C60046AA97 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = "Sources/Base.lproj/Launch Screen.storyboard"; sourceTree = "<group>"; };
 		DC27B75C1A9D0C80003DA2CB /* SCScrollableWaveformView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SCScrollableWaveformView.h; sourceTree = "<group>"; };
 		DC27B75D1A9D0C80003DA2CB /* SCScrollableWaveformView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SCScrollableWaveformView.m; sourceTree = "<group>"; };
 		DC27B75F1A9D2649003DA2CB /* SCWaveformCache.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SCWaveformCache.h; sourceTree = "<group>"; };
@@ -112,6 +114,7 @@
 				DC2C7A411892A0770085043D /* SCAppDelegate.h */,
 				DC2C7A421892A0770085043D /* SCAppDelegate.m */,
 				DC2C7A441892A0770085043D /* Main.storyboard */,
+				3D33F58E275505C60046AA97 /* Launch Screen.storyboard */,
 				DC2C7A471892A0770085043D /* SCViewController.h */,
 				DC2C7A481892A0770085043D /* SCViewController.m */,
 				DC2C7A4A1892A0770085043D /* Images.xcassets */,
@@ -199,6 +202,7 @@
 				DC2C7A6C1892A84F0085043D /* test.m4a in Resources */,
 				DC2C7A4B1892A0770085043D /* Images.xcassets in Resources */,
 				DC2C7A3D1892A0770085043D /* InfoPlist.strings in Resources */,
+				3D33F590275505C60046AA97 /* Launch Screen.storyboard in Resources */,
 				DC2C7A461892A0770085043D /* Main.storyboard in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -222,6 +226,14 @@
 /* End PBXSourcesBuildPhase section */
 
 /* Begin PBXVariantGroup section */
+		3D33F58E275505C60046AA97 /* Launch Screen.storyboard */ = {
+			isa = PBXVariantGroup;
+			children = (
+				3D33F58F275505C60046AA97 /* Base */,
+			);
+			name = "Launch Screen.storyboard";
+			sourceTree = "<group>";
+		};
 		DC2C7A3B1892A0770085043D /* InfoPlist.strings */ = {
 			isa = PBXVariantGroup;
 			children = (
@@ -348,7 +360,6 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
-				ASSETCATALOG_COMPILER_LAUNCHIMAGE_NAME = LaunchImage;
 				GCC_PRECOMPILE_PREFIX_HEADER = YES;
 				GCC_PREFIX_HEADER = "Sources/SCWaveformView-Prefix.pch";
 				INFOPLIST_FILE = "Sources/SCWaveformView-Info.plist";
@@ -362,7 +373,6 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
-				ASSETCATALOG_COMPILER_LAUNCHIMAGE_NAME = LaunchImage;
 				GCC_PRECOMPILE_PREFIX_HEADER = YES;
 				GCC_PREFIX_HEADER = "Sources/SCWaveformView-Prefix.pch";
 				INFOPLIST_FILE = "Sources/SCWaveformView-Info.plist";
