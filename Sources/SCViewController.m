@@ -24,12 +24,14 @@
 
     self.scrollableWaveformView.waveformView.precision = 1;
     self.scrollableWaveformView.waveformView.lineWidthRatio = 1;
-    self.scrollableWaveformView.waveformView.normalColor = [UIColor colorWithRed:0.8 green:0.3 blue:0.3 alpha:1];
     self.scrollableWaveformView.waveformView.channelsPadding = 10;
-    self.scrollableWaveformView.waveformView.progressColor = [UIColor colorWithRed:1 green:0.2 blue:0.2 alpha:1];
+    
+    self.scrollableWaveformView.waveformView.normalColor = [UIColor colorWithWhite:0.7 alpha:1.0];
+    self.scrollableWaveformView.waveformView.progressColor = [UIColor colorWithWhite:1.0 alpha:1.0];
+    
     AVURLAsset *asset = [[AVURLAsset alloc] initWithURL:[[NSBundle mainBundle] URLForResource:@"test" withExtension:@"m4a"] options:nil];
     
-    self.scrollableWaveformView.alpha = 0.8;
+    self.scrollableWaveformView.alpha = 1.0;
     
     self.scrollableWaveformView.waveformView.asset = asset;
     CMTime progressTime = CMTimeMakeWithSeconds(
