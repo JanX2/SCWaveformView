@@ -227,11 +227,11 @@
                     }
                 }
                 
-                SCWaveformLayer *layer = [[_waveforms objectAtIndex:channel] objectAtIndex:idx];
+				SCWaveformLayer *layer = [[self->_waveforms objectAtIndex:channel] objectAtIndex:idx];
                 
                 CGColorRef destColor = nil;
                 
-                if (CMTIME_COMPARE_INLINE(time, >=, _progressTime)) {
+                if (CMTIME_COMPARE_INLINE(time, >=, self->_progressTime)) {
                     destColor = normalColor;
                 } else {
                     destColor = progressColor;
@@ -241,8 +241,8 @@
                     layer.backgroundColor = destColor;
                 }
                 
-                layer.frame = CGRectMake((newFirstVisibleIdx + idx) * bandWidth, _channelsPadding * channel + heightPerChannel * channel + halfHeightPerChannel - pixelHeight,
-                                         _lineWidthRatio / pixelRatio, pixelHeight * 2);
+                layer.frame = CGRectMake((newFirstVisibleIdx + idx) * bandWidth, self->_channelsPadding * channel + heightPerChannel * channel + halfHeightPerChannel - pixelHeight,
+										 self->_lineWidthRatio / pixelRatio, pixelHeight * 2);
                 
                 layer.waveformTime = time;
             }
