@@ -91,7 +91,7 @@
 //    self.scrollableWaveformView.waveformView.channelStartIndex = sender.on ? 1 : 0;
 }
 
-- (IBAction)sliderProgressChanged:(UISlider*)sender
+- (IBAction)sliderProgressChanged:(UISlider *)sender
 {
     CMTime start = self.scrollableWaveformView.waveformView.timeRange.start;
     CMTime duration = CMTimeMakeWithSeconds(
