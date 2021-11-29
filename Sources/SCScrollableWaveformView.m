@@ -60,10 +60,8 @@ static char *ScrollableWaveformContentOffsetContext = "ScrollableWaveformContent
 - (void)_updateWaveform {
     CMTime actualAssetTime = _waveformView.actualAssetDuration;
     if (CMTIME_IS_VALID(actualAssetTime)) {
-        CGFloat ratio = self.contentOffset.x / self.contentSize.width;
-        CMTime newStart = CMTimeMakeWithSeconds(
-                                                CMTimeGetSeconds(actualAssetTime) * ratio,
-                                                100000);
+        Float64 ratio = self.contentOffset.x / self.contentSize.width;
+        CMTime newStart = CMTimeMultiplyByFloat64(actualAssetTime, ratio);
         
         if (CMTIME_COMPARE_INLINE(newStart, !=, _waveformView.timeRange.start)) {
 //            NSLog(@"Updating timeRange to %fs", CMTimeGetSeconds(newStart));

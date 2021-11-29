@@ -34,11 +34,15 @@
     self.scrollableWaveformView.alpha = 1.0;
     
     self.scrollableWaveformView.waveformView.asset = asset;
-    CMTime progressTime = CMTimeMakeWithSeconds(
-                                                self.slider.value * CMTimeGetSeconds(self.scrollableWaveformView.waveformView.asset.duration),
-                                                100000);
     
-    self.scrollableWaveformView.waveformView.timeRange = CMTimeRangeMake(CMTimeMakeWithSeconds(15, 10000), progressTime);
+    Float64 progressPercent = (Float64)self.slider.value;
+    CMTime duration = self.scrollableWaveformView.waveformView.asset.duration;
+    CMTime currentTime = CMTimeMultiplyByFloat64(duration, progressPercent);
+    
+    const double defaultStartInS = 15.0;
+    CMTime defaultVisibleStartTime = CMTimeMakeWithSeconds(defaultStartInS, currentTime.timescale);
+    CMTimeRange defaultVisibleTimeRange = CMTimeRangeMake(defaultVisibleStartTime, currentTime);
+    self.scrollableWaveformView.waveformView.timeRange = defaultVisibleTimeRange;
     
     _player = [AVPlayer playerWithPlayerItem:[AVPlayerItem playerItemWithAsset:asset]];
     
@@ -95,17 +99,18 @@
 
 - (IBAction)sliderProgressChanged:(UISlider *)sender
 {
-    CMTime start = self.scrollableWaveformView.waveformView.timeRange.start;
-    CMTime duration = CMTimeMakeWithSeconds(
-                                            sender.value * CMTimeGetSeconds(self.scrollableWaveformView.waveformView.asset.duration),
-                                            100000);
+    const CMTime start = self.scrollableWaveformView.waveformView.timeRange.start;
+    const CMTime duration = self.scrollableWaveformView.waveformView.asset.duration;
+    const Float64 progressPercent = (Float64)sender.value;
+    const CMTime currentTime = CMTimeMultiplyByFloat64(duration, progressPercent);
+    CMTime newStart = start;
     
     // Adjusting the start time
-    if (CMTIME_COMPARE_INLINE(CMTimeAdd(start, duration), >, self.scrollableWaveformView.waveformView.asset.duration)) {
-        start = CMTimeSubtract(self.scrollableWaveformView.waveformView.asset.duration, duration);
+    if (CMTIME_COMPARE_INLINE(CMTimeAdd(newStart, currentTime), >, duration)) {
+        newStart = CMTimeSubtract(duration, currentTime);
     }
     
-    self.scrollableWaveformView.waveformView.timeRange = CMTimeRangeMake(start, duration);
+    self.scrollableWaveformView.waveformView.timeRange = CMTimeRangeMake(newStart, currentTime);
 }
 
 @end

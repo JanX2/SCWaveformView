@@ -87,14 +87,20 @@
     return CMTimeMultiply(_timePerPixel, (int)(cachedData.length / sizeof(float)));
 }
 
+- (CMTime)cacheEnd {
+    return CMTimeAdd(_cachedStartTime, [self cacheDuration]);
+}
+
 static float SCDecibelAverage(double sample, NSUInteger sampleCount) {
     return 20.0 * log10(sample / (double)sampleCount);
 }
 
-- (BOOL)readTimeRange:(CMTimeRange)timeRange width:(CGFloat)width error:(NSError *__autoreleasing *)error {
+- (BOOL)readTimeRange:(CMTimeRange)requestedTimeRange width:(CGFloat)width error:(NSError *__autoreleasing *)error {
     if (self.asset == nil) {
         return NO;
     }
+    
+    CMTimeRange timeRange = requestedTimeRange;
     
     if (CMTIME_COMPARE_INLINE(timeRange.start, <, kCMTimeZero)) {
         timeRange.start = kCMTimeZero;
@@ -143,18 +149,17 @@ static float SCDecibelAverage(double sample, NSUInteger sampleCount) {
     timeRange.start.value = timeRange.start.value - timeRange.start.value % samplesPerPixel;
     timeRange.duration.value = timeRange.duration.value - timeRange.duration.value % samplesPerPixel;
     
-    _timePerPixel = CMTimeMultiplyByFloat64(timeRange.duration, 1 / width);
+    _timePerPixel = CMTimeMultiplyByFloat64(timeRange.duration, (Float64)(1.0 / width));
     
-    CMTime cacheDuration = [self cacheDuration];
-    CMTime cacheEndTime = CMTimeAdd(_cachedStartTime, cacheDuration);
+    CMTime cacheEndTime = [self cacheEnd];
     
-    while (CMTIME_COMPARE_INLINE(CMTimeAdd(timeRange.start, timeRange.duration), <, CMTimeAdd(oldTimeRange.start, oldTimeRange.duration))) {
+    while (CMTIME_COMPARE_INLINE(CMTimeRangeGetEnd(timeRange), <, CMTimeRangeGetEnd(oldTimeRange))) {
         timeRange.duration.value += samplesPerPixel;
     }
     timeRange.duration.value += samplesPerPixel;
     
     if (samplesPerPixel != _samplesPerPixel ||
-        CMTIME_COMPARE_INLINE(CMTimeAdd(timeRange.start, timeRange.duration), <, _cachedStartTime) || CMTIME_COMPARE_INLINE(timeRange.start, >, cacheEndTime)) {
+        CMTIME_COMPARE_INLINE(CMTimeRangeGetEnd(timeRange), <, _cachedStartTime) || CMTIME_COMPARE_INLINE(timeRange.start, >, cacheEndTime)) {
         [self invalidate];
         cacheEndTime = kCMTimeInvalid;
     }
@@ -177,13 +182,13 @@ static float SCDecibelAverage(double sample, NSUInteger sampleCount) {
                     timeRange.start = kCMTimeZero;
                 }
                 
-                if (CMTIME_COMPARE_INLINE(CMTimeAdd(timeRange.start, timeRange.duration), >, _cachedStartTime)) {
+                if (CMTIME_COMPARE_INLINE(CMTimeRangeGetEnd(timeRange), >, _cachedStartTime)) {
                     timeRange.duration = CMTimeSubtract(_cachedStartTime, timeRange.start);
                 }
                 
                 shouldSetStartTime = YES;
             } else {
-                if (CMTIME_COMPARE_INLINE(CMTimeAdd(timeRange.start, timeRange.duration), >, cacheEndTime)) {
+                if (CMTIME_COMPARE_INLINE(CMTimeRangeGetEnd(timeRange), >, cacheEndTime)) {
                     timeRange.start = cacheEndTime;
                     
                     shouldAppendPageAtBeginning = NO;
@@ -195,7 +200,7 @@ static float SCDecibelAverage(double sample, NSUInteger sampleCount) {
             shouldSetStartTime = YES;
         }
 
-        if (CMTIME_COMPARE_INLINE(CMTimeAdd(timeRange.start, timeRange.duration), >, assetDuration)) {
+        if (CMTIME_COMPARE_INLINE(CMTimeRangeGetEnd(timeRange), >, assetDuration)) {
             if (shouldReadAsset) {
                 shouldReadAsset = !_readEndOfAsset;
             }
@@ -382,7 +387,7 @@ static float SCDecibelAverage(double sample, NSUInteger sampleCount) {
         
         if (isLastSegment) {
             _readEndOfAsset = YES;
-            _actualAssetDuration = CMTimeAdd(_cachedStartTime, [self cacheDuration]);
+            _actualAssetDuration = [self cacheEnd];
         }
         if (isFirstSegment) {
             _readStartOfAsset = YES;
@@ -393,8 +398,8 @@ static float SCDecibelAverage(double sample, NSUInteger sampleCount) {
         }
 
 #if SCWaveformDebug
-        NSLog(@"Read timeRange %fs to %fs. New cache duration: %fs (end bounds: %fs), asset duration: %fs", CMTimeGetSeconds(timeRange.start), CMTimeGetSeconds(CMTimeAdd(timeRange.start, timeRange.duration)),
-              CMTimeGetSeconds([self cacheDuration]), CMTimeGetSeconds(CMTimeAdd(_cachedStartTime, [self cacheDuration])), CMTimeGetSeconds([self actualAssetDuration]));
+        NSLog(@"Read timeRange %fs to %fs. New cache duration: %fs (end bounds: %fs), asset duration: %fs", CMTimeGetSeconds(timeRange.start), CMTimeGetSeconds(CMTimeRangeGetEnd(timeRange)),
+              CMTimeGetSeconds([self cacheDuration]), CMTimeGetSeconds([self cacheEndTime]), CMTimeGetSeconds([self actualAssetDuration]));
 #endif
     }
     

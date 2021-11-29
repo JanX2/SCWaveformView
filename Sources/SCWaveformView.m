@@ -165,7 +165,7 @@
         }
         
         
-        CMTime timePerPixel = CMTimeMultiplyByFloat64(_timeRange.duration, 1 / size.width);
+        CMTime timePerPixel = CMTimeMultiplyByFloat64(_timeRange.duration, (Float64)(1.0 / size.width));
         double startRatio = CMTimeGetSeconds(_timeRange.start) / CMTimeGetSeconds(timePerPixel);
         int newFirstVisibleIdx = floor(startRatio);
         waveformSuperlayerFrame.origin.x = -startRatio / pixelRatio;
