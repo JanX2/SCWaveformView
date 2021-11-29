@@ -18,6 +18,14 @@
 
 @implementation SCViewController
 
+// From:
+// https://stackoverflow.com/questions/427477/fastest-way-to-clamp-a-real-fixed-floating-point-value
+// https://stackoverflow.com/a/16659263/152827
+NS_INLINE CGFloat clamp(CGFloat d, CGFloat min, CGFloat max) {
+    const CGFloat t = d < min ? min : d;
+    return t > max ? max : t;
+}
+
 - (void)viewDidLoad
 {
     [super viewDidLoad];
@@ -51,6 +59,39 @@
     __unsafe_unretained SCViewController *mySelf = self;
     _observer = [_player addPeriodicTimeObserverForInterval:CMTimeMake(1, 60) queue:dispatch_get_main_queue() usingBlock:^(CMTime time) {
         mySelf.scrollableWaveformView.waveformView.progressTime = time;
+        
+        // Percentage determining where in the frame the progress boundary will be held by auto-scrolling.
+        // Unless this would cause the start or end of the content to detatch from the frame.
+        // (This would cause the the waveform to begin or end somewhere on the screen other than the frame boundaries.)
+        // If you are interested in this behavior, remove the clamp() call below.
+        // 0.5 means center of the frame
+        const CGFloat defaultProgressPositionInFrameOffset = 0.5;
+        if (YES) {
+            // Adapted from https://github.com/jhays/JHSCWaveformView
+            CMTime duration = asset.duration;
+            
+            if (CMTIME_IS_NUMERIC(duration) &&
+                CMTIME_IS_NUMERIC(time)) {
+                CGFloat durationInS = CMTimeGetSeconds(asset.duration);
+                CGFloat timeInS = CMTimeGetSeconds(time);
+                
+                CGFloat percentComplete = timeInS / durationInS;
+                
+                CGFloat frameWidth = mySelf.scrollableWaveformView.frame.size.width;
+                CGFloat contentWidth = mySelf.scrollableWaveformView.contentSize.width;
+                
+                CGFloat newFrameEndTarget = contentWidth * percentComplete;
+                CGFloat relativeProgressOffset = frameWidth * defaultProgressPositionInFrameOffset;
+                
+                CGFloat newOffset = newFrameEndTarget - relativeProgressOffset;
+                
+                const CGFloat min = 0.0;
+                const CGFloat max = contentWidth - frameWidth;
+                newOffset = clamp(newOffset, min, max);
+                
+                mySelf.scrollableWaveformView.contentOffset = CGPointMake(newOffset, 0.0);
+            }
+        }
     }];
 }
 
