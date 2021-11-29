@@ -24,6 +24,9 @@
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
+		3D33F588275502350046AA97 /* DEVELOPMENT_TEAM.template.xcconfig */ = {isa = PBXFileReference; lastKnownFileType = text.xcconfig; path = DEVELOPMENT_TEAM.template.xcconfig; sourceTree = "<group>"; };
+		3D33F589275502350046AA97 /* DEVELOPMENT_TEAM.xcconfig */ = {isa = PBXFileReference; lastKnownFileType = text.xcconfig; path = DEVELOPMENT_TEAM.xcconfig; sourceTree = "<group>"; };
+		3D33F58A275502350046AA97 /* Shared.xcconfig */ = {isa = PBXFileReference; lastKnownFileType = text.xcconfig; path = Shared.xcconfig; sourceTree = "<group>"; };
 		DC27B75C1A9D0C80003DA2CB /* SCScrollableWaveformView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SCScrollableWaveformView.h; sourceTree = "<group>"; };
 		DC27B75D1A9D0C80003DA2CB /* SCScrollableWaveformView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SCScrollableWaveformView.m; sourceTree = "<group>"; };
 		DC27B75F1A9D2649003DA2CB /* SCWaveformCache.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SCWaveformCache.h; sourceTree = "<group>"; };
@@ -64,9 +67,20 @@
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
+		3D33F587275502350046AA97 /* Xcode-config */ = {
+			isa = PBXGroup;
+			children = (
+				3D33F588275502350046AA97 /* DEVELOPMENT_TEAM.template.xcconfig */,
+				3D33F589275502350046AA97 /* DEVELOPMENT_TEAM.xcconfig */,
+				3D33F58A275502350046AA97 /* Shared.xcconfig */,
+			);
+			path = "Xcode-config";
+			sourceTree = "<group>";
+		};
 		DC2C7A261892A0770085043D = {
 			isa = PBXGroup;
 			children = (
+				3D33F587275502350046AA97 /* Xcode-config */,
 				DC2C7A6B1892A84F0085043D /* test.m4a */,
 				DC2C7A381892A0770085043D /* Sources */,
 				DC2C7A311892A0770085043D /* Frameworks */,
@@ -160,6 +174,7 @@
 			developmentRegion = English;
 			hasScannedForEncodings = 0;
 			knownRegions = (
+				English,
 				en,
 				Base,
 			);
@@ -225,6 +240,7 @@
 /* Begin XCBuildConfiguration section */
 		DC2C7A5F1892A0770085043D /* Debug */ = {
 			isa = XCBuildConfiguration;
+			baseConfigurationReference = 3D33F58A275502350046AA97 /* Shared.xcconfig */;
 			buildSettings = {
 				ALWAYS_SEARCH_USER_PATHS = NO;
 				CLANG_CXX_LANGUAGE_STANDARD = "gnu++0x";
@@ -269,6 +285,7 @@
 		};
 		DC2C7A601892A0770085043D /* Release */ = {
 			isa = XCBuildConfiguration;
+			baseConfigurationReference = 3D33F58A275502350046AA97 /* Shared.xcconfig */;
 			buildSettings = {
 				ALWAYS_SEARCH_USER_PATHS = NO;
 				CLANG_CXX_LANGUAGE_STANDARD = "gnu++0x";
