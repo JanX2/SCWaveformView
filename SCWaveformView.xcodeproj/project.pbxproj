@@ -365,6 +365,7 @@
 				INFOPLIST_FILE = "Sources/SCWaveformView-Info.plist";
 				PRODUCT_BUNDLE_IDENTIFIER = "SCorsin.${PRODUCT_NAME:rfc1034identifier}";
 				PRODUCT_NAME = "$(TARGET_NAME)";
+				TARGETED_DEVICE_FAMILY = "1,2";
 				WRAPPER_EXTENSION = app;
 			};
 			name = Debug;
@@ -378,6 +379,7 @@
 				INFOPLIST_FILE = "Sources/SCWaveformView-Info.plist";
 				PRODUCT_BUNDLE_IDENTIFIER = "SCorsin.${PRODUCT_NAME:rfc1034identifier}";
 				PRODUCT_NAME = "$(TARGET_NAME)";
+				TARGETED_DEVICE_FAMILY = "1,2";
 				WRAPPER_EXTENSION = app;
 			};
 			name = Release;
