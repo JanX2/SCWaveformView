@@ -64,7 +64,7 @@ NS_INLINE CGFloat clamp(CGFloat d, CGFloat min, CGFloat max) {
         // Unless this would cause the start or end of the content to detatch from the frame.
         // (This would cause the the waveform to begin or end somewhere on the screen other than the frame boundaries.)
         // If you are interested in this behavior, remove the clamp() call below.
-        // 0.5 means center of the frame
+        // “0.5” means center of the frame.
         const CGFloat defaultProgressPositionInFrameOffset = 0.5;
         if (YES) {
             // Adapted from https://github.com/jhays/JHSCWaveformView
