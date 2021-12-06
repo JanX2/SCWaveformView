@@ -56,9 +56,9 @@ NS_INLINE CGFloat clamp(CGFloat d, CGFloat min, CGFloat max) {
     
     [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(_playReachedEnd:) name:AVPlayerItemDidPlayToEndTimeNotification object:_player.currentItem];
     
-    __unsafe_unretained SCViewController *mySelf = self;
+    __unsafe_unretained SCViewController *weakSelf = self;
     _observer = [_player addPeriodicTimeObserverForInterval:CMTimeMake(1, 60) queue:dispatch_get_main_queue() usingBlock:^(CMTime time) {
-        mySelf.scrollableWaveformView.waveformView.progressTime = time;
+        weakSelf.scrollableWaveformView.waveformView.progressTime = time;
         
         // Percentage determining where in the frame the progress boundary will be held by auto-scrolling.
         // Unless this would cause the start or end of the content to detatch from the frame.
@@ -77,8 +77,8 @@ NS_INLINE CGFloat clamp(CGFloat d, CGFloat min, CGFloat max) {
                 
                 CGFloat percentComplete = timeInS / durationInS;
                 
-                CGFloat frameWidth = mySelf.scrollableWaveformView.frame.size.width;
-                CGFloat contentWidth = mySelf.scrollableWaveformView.contentSize.width;
+                CGFloat frameWidth = weakSelf.scrollableWaveformView.frame.size.width;
+                CGFloat contentWidth = weakSelf.scrollableWaveformView.contentSize.width;
                 
                 CGFloat newFrameEndTarget = contentWidth * percentComplete;
                 CGFloat relativeProgressOffset = frameWidth * defaultProgressPositionInFrameOffset;
@@ -89,7 +89,7 @@ NS_INLINE CGFloat clamp(CGFloat d, CGFloat min, CGFloat max) {
                 const CGFloat max = contentWidth - frameWidth;
                 newOffset = clamp(newOffset, min, max);
                 
-                mySelf.scrollableWaveformView.contentOffset = CGPointMake(newOffset, 0.0);
+                weakSelf.scrollableWaveformView.contentOffset = CGPointMake(newOffset, 0.0);
             }
         }
     }];
