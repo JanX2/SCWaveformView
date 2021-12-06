@@ -54,10 +54,15 @@ NS_INLINE CGFloat clamp(CGFloat d, CGFloat min, CGFloat max) {
     
     _player = [AVPlayer playerWithPlayerItem:[AVPlayerItem playerItemWithAsset:asset]];
     
-    [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(_playReachedEnd:) name:AVPlayerItemDidPlayToEndTimeNotification object:_player.currentItem];
+    [[NSNotificationCenter defaultCenter] addObserver:self
+                                             selector:@selector(_playReachedEnd:)
+                                                 name:AVPlayerItemDidPlayToEndTimeNotification
+                                               object:_player.currentItem];
     
     __unsafe_unretained SCViewController *weakSelf = self;
-    _observer = [_player addPeriodicTimeObserverForInterval:CMTimeMake(1, 60) queue:dispatch_get_main_queue() usingBlock:^(CMTime time) {
+    _observer = [_player addPeriodicTimeObserverForInterval:CMTimeMake(1, 60)
+                                                      queue:dispatch_get_main_queue()
+                                                 usingBlock:^(CMTime time) {
         weakSelf.scrollableWaveformView.waveformView.progressTime = time;
         
         // Percentage determining where in the frame the progress boundary will be held by auto-scrolling.
