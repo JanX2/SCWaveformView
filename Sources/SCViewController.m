@@ -12,6 +12,8 @@
 @interface SCViewController () {
     AVPlayer *_player;
     id _observer;
+    
+    BOOL _autoScrollingEnabled;
 }
 
 @end
@@ -32,6 +34,8 @@ NS_INLINE CGFloat clamp(CGFloat d, CGFloat min, CGFloat max) {
     
     self.scrollableWaveformView.indicatorStyle = UIScrollViewIndicatorStyleWhite;
     
+    self.scrollableWaveformView.delegate = self;
+
     self.scrollableWaveformView.waveformView.precision = 1;
     self.scrollableWaveformView.waveformView.lineWidthRatio = 1;
     self.scrollableWaveformView.waveformView.channelsPadding = 10;
@@ -55,6 +59,8 @@ NS_INLINE CGFloat clamp(CGFloat d, CGFloat min, CGFloat max) {
     self.scrollableWaveformView.waveformView.timeRange = defaultVisibleTimeRange;
     
     _player = [AVPlayer playerWithPlayerItem:[AVPlayerItem playerItemWithAsset:asset]];
+    
+    _autoScrollingEnabled = YES;
     
     [[NSNotificationCenter defaultCenter] addObserver:self
                                              selector:@selector(_playReachedEnd:)
@@ -80,7 +86,7 @@ NS_INLINE CGFloat clamp(CGFloat d, CGFloat min, CGFloat max) {
         // If you are interested in this behavior, remove the clamp() call below.
         // “0.5” means center of the frame.
         const CGFloat defaultProgressPositionInFrameOffset = 0.5;
-        if (YES) {
+        if (weakSelf->_autoScrollingEnabled) {
             // Adapted from https://github.com/jhays/JHSCWaveformView
             CMTime duration = asset.duration;
             
@@ -107,6 +113,10 @@ NS_INLINE CGFloat clamp(CGFloat d, CGFloat min, CGFloat max) {
             }
         }
     }];
+}
+
+-(void)scrollViewWillBeginDragging:(UIScrollView *)scrollView {
+    _autoScrollingEnabled = NO;
 }
 
 - (void)_playReachedEnd:(NSNotification *)notification {
@@ -137,6 +147,7 @@ NS_INLINE CGFloat clamp(CGFloat d, CGFloat min, CGFloat max) {
     
     if (sender.selected) {
         [_player play];
+        _autoScrollingEnabled = YES;
     } else {
         [_player pause];
     }
