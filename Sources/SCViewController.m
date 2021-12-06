@@ -142,8 +142,10 @@ NS_INLINE CGFloat clamp(CGFloat d, CGFloat min, CGFloat max) {
 {
     const CMTime start = self.scrollableWaveformView.waveformView.timeRange.start;
     const CMTime duration = self.scrollableWaveformView.waveformView.asset.duration;
+    
     const Float64 progressPercent = (Float64)sender.value;
     const CMTime currentTime = CMTimeMultiplyByFloat64(duration, progressPercent);
+    
     CMTime newStart = start;
     
     // Adjusting the start time
