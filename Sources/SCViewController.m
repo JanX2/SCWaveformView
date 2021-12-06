@@ -59,8 +59,15 @@ NS_INLINE CGFloat clamp(CGFloat d, CGFloat min, CGFloat max) {
                                                  name:AVPlayerItemDidPlayToEndTimeNotification
                                                object:_player.currentItem];
     
+    [self addPeriodicTimeObserverForAsset:asset
+                                 interval:CMTimeMake(1, 60)];
+}
+
+- (void)addPeriodicTimeObserverForAsset:(AVAsset *)asset
+                               interval:(CMTime)interval
+{
     __unsafe_unretained SCViewController *weakSelf = self;
-    _observer = [_player addPeriodicTimeObserverForInterval:CMTimeMake(1, 60)
+    _observer = [_player addPeriodicTimeObserverForInterval:interval
                                                       queue:dispatch_get_main_queue()
                                                  usingBlock:^(CMTime time) {
         weakSelf.scrollableWaveformView.waveformView.progressTime = time;
