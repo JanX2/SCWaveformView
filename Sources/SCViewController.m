@@ -29,7 +29,9 @@ NS_INLINE CGFloat clamp(CGFloat d, CGFloat min, CGFloat max) {
 - (void)viewDidLoad
 {
     [super viewDidLoad];
-
+    
+    self.scrollableWaveformView.indicatorStyle = UIScrollViewIndicatorStyleWhite;
+    
     self.scrollableWaveformView.waveformView.precision = 1;
     self.scrollableWaveformView.waveformView.lineWidthRatio = 1;
     self.scrollableWaveformView.waveformView.channelsPadding = 10;
