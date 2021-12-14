@@ -107,13 +107,13 @@ NS_INLINE CGFloat clamp(CGFloat d, CGFloat min, CGFloat max) {
                 CGFloat newFrameEndTarget = contentWidth * percentComplete;
                 CGFloat relativeProgressOffset = frameWidth * defaultProgressPositionInFrameOffset;
                 
-                CGFloat newOffset = newFrameEndTarget - relativeProgressOffset;
+                CGFloat newXOffset = newFrameEndTarget - relativeProgressOffset;
                 
                 const CGFloat min = 0.0;
                 const CGFloat max = contentWidth - frameWidth;
-                newOffset = clamp(newOffset, min, max);
+                newXOffset = clamp(newXOffset, min, max);
                 
-                weakSelf.scrollableWaveformView.contentOffset = CGPointMake(newOffset, 0.0);
+                weakSelf.scrollableWaveformView.contentOffset = CGPointMake(newXOffset, 0.0);
             }
         }
     }];
