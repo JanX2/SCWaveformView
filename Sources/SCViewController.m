@@ -86,6 +86,8 @@ NS_INLINE CGFloat clamp(CGFloat d, CGFloat min, CGFloat max) {
         // If you are interested in this behavior, remove the clamp() call below.
         // “0.5” means center of the frame.
         const CGFloat defaultProgressPositionInFrameOffset = 0.5;
+        // TODO: Evaluate, if instead of pushing the offset, we can poll it from the animation.
+        // This way, the value would always be in sync with drawing.
         if (weakSelf->_autoScrollingEnabled) {
             // Adapted from https://github.com/jhays/JHSCWaveformView
             CMTime duration = asset.duration;
