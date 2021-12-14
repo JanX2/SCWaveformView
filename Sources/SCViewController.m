@@ -33,6 +33,8 @@ NS_INLINE CGFloat clamp(CGFloat d, CGFloat min, CGFloat max) {
     [super viewDidLoad];
     
     self.scrollableWaveformView.indicatorStyle = UIScrollViewIndicatorStyleWhite;
+    self.scrollableWaveformView.showsHorizontalScrollIndicator = YES;
+    self.scrollableWaveformView.showsVerticalScrollIndicator = NO;
     
     self.scrollableWaveformView.delegate = self;
 
