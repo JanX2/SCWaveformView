@@ -34,10 +34,6 @@
 
 @end
 
-//@interface SCWaveformLayerDelegate : NSObject
-//
-//@end
-
 @implementation SCWaveformLayerDelegate
 
 - (id)actionForLayer:(CALayer *)layer forKey:(NSString *)event {
