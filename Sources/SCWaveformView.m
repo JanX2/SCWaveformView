@@ -227,7 +227,7 @@
                     }
                 }
                 
-				SCWaveformLayer *layer = [[self->_waveforms objectAtIndex:channel] objectAtIndex:idx];
+                SCWaveformLayer *layer = [[self->_waveforms objectAtIndex:channel] objectAtIndex:idx];
                 
                 CGColorRef destColor = nil;
                 
@@ -241,8 +241,10 @@
                     layer.backgroundColor = destColor;
                 }
                 
-                layer.frame = CGRectMake((newFirstVisibleIdx + idx) * bandWidth, self->_channelsPadding * channel + heightPerChannel * channel + halfHeightPerChannel - pixelHeight,
-										 self->_lineWidthRatio / pixelRatio, pixelHeight * 2);
+                layer.frame = CGRectMake((newFirstVisibleIdx + idx) * bandWidth,
+                                         self->_channelsPadding * channel + heightPerChannel * channel + halfHeightPerChannel - pixelHeight,
+                                         self->_lineWidthRatio / pixelRatio,
+                                         pixelHeight * 2);
                 
                 layer.waveformTime = time;
             }
